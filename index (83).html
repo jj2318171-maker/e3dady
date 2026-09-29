@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مهرجان الكرازة</title>
+<style>
+:root{--bg:#faf6ee;--c:#fff;--t:#2a2118;--m:#7a6a58;--a:#a4262c;--a2:#d9a441;--b:#e6dccb;--ok:#2e7d4f}
+@media(prefers-color-scheme:dark){:root{--bg:#1b1612;--c:#26201a;--t:#f3ebdd;--m:#b3a48f;--b:#3b3227;--a:#e0575d}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t);font-family:Tahoma,"Segoe UI",Arial,sans-serif;line-height:1.7}
+.w{max-width:640px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin:0}h2{font-size:18px;margin:0 0 8px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.card{background:var(--c);border:1px solid var(--b);border-radius:14px;padding:16px;margin-bottom:12px}
+input,button,select{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--b);background:var(--bg);color:var(--t);width:100%;margin:4px 0}
+button{background:var(--a);color:#fff;border:0;cursor:pointer;font-weight:bold}
+button.s{background:var(--b);color:var(--t)}button:disabled{opacity:.4;cursor:not-allowed}
+.tabs{display:flex;gap:6px}.tabs button{width:auto;flex:1}
+.warn{background:#fff3cd;color:#664d03;border-radius:10px;padding:10px;margin:8px 0}
+.cred{font-family:monospace;font-size:18px;background:var(--bg);padding:8px;border-radius:8px;direction:ltr;text-align:left;margin:4px 0}
+.g{display:flex;justify-content:space-between;align-items:center;gap:8px}.g button{width:auto}
+.bar{height:8px;background:var(--b);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--a2)}
+.m{color:var(--m);font-size:14px}.ok{color:var(--ok)}.bad{color:var(--a)}
+@media print{body *{visibility:hidden}#idcard,#idcard *{visibility:visible}#idcard{position:absolute;top:0;left:0;right:0}.np{display:none!important}}
+</style></head><body><div class="w" id="app"></div>
+<script>
+// 👇 حط هنا رابط الـ Web App بعد ما تعمل Deploy للـ Apps Script
+const API_URL='https://script.google.com/macros/s/AKfycbyK3LdH_g4V3RgXC310qsf9WBeCC3ZtNtLebLbaW0t7Qck6VuPo8Xlwvv_ktlqJ8fmH/exec';
+let S={tab:'login',cred:null,data:null,msg:'',fresh:null,busy:false};
+try{S.cred=JSON.parse(sessionStorage.getItem('kzc'))}catch(e){}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=id=>document.getElementById(id);
+async function api(action,extra){
+ S.busy=true;render();
+ try{const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,...(S.cred||{}),...extra})});
+  const j=await r.json();S.busy=false;if(!j.ok)throw new Error(j.error);return j}
+ catch(e){S.busy=false;S.msg=e.message==='Failed to fetch'?'مشكلة في الاتصال، جرب تاني':e.message;render();return null}}
+async function reg(){const name=$('n').value.trim().replace(/\s+/g,' '),phone=$('ph').value.trim(),cls=$('cl').value,password=$('p').value;S.msg='';
+ if(!/^[\u0621-\u064A]+( [\u0621-\u064A]+){2,}$/.test(name))return go2('اكتب الاسم ثلاثي بالعربي');
+ if(!cls)return go2('اختار الفصل');
+ const j=await api('register',{name,phone,cls,password});if(j){S.fresh={u:j.username,p:password,name,cls};S.tab='login';render()}}
+async function login(){S.cred={username:$('u').value.trim(),password:$('p').value};S.msg='';
+ const j=await api('me');if(j){S.data=j;try{sessionStorage.setItem('kzc',JSON.stringify(S.cred))}catch(e){}}else S.cred=null;render()}
+const go2=m=>{S.msg=m;render()};
+async function refresh(msg){const j=await api('me');if(j){S.data=j;S.msg=msg||''}render()}
+async function join(g){const j=await api('join',{group:g});if(j){S.data=j;S.msg=''}render()}
+async function redeem(){const j=await api('redeem',{code:$('cd').value});if(j){S.data=j;S.msg='تمام! خدت '+j.gained+' نقطة ✅'}render()}
+function out(){S={tab:'login',cred:null,data:null,msg:'',fresh:null,busy:false};try{sessionStorage.removeItem('kzc')}catch(e){}render()}
+const head=t=>`<div class="top"><h1>✝ مهرجان الكرازة</h1>${t?'<button class="s" style="width:auto" onclick="out()">خروج</button>':''}</div>`;
+function render(){let h;const d=S.data;
+ const msg=S.msg?`<div class="card ${S.msg.includes('✅')?'ok':'bad'}">${esc(S.msg)}</div>`:'';
+ const busy=S.busy?'<div class="card m">⏳ لحظة...</div>':'';
+ if(S.fresh)h=head(0)+`<div class="card" id="idcard" style="border:2px dashed var(--a)"><h2>✝ كارت اشتراك مهرجان الكرازة</h2>
+  <div><b>${esc(S.fresh.name)}</b> — ${esc(S.fresh.cls)}</div>
+  <div class="m">اسم المستخدم</div><div class="cred">${esc(S.fresh.u)}</div><div class="m">الباسورد</div><div class="cred">${esc(S.fresh.p)}</div>
+  <div class="warn">⚠️ متشاركش اسم المستخدم أو الباسورد مع حد أبدًا. حسابك دلوقتي <b>Pending</b> لحد ما تدفع الاشتراك والإدارة تأكد الدفع.</div>
+  <button class="np" onclick="window.print()">🖨 طباعة / حفظ PDF</button><button class="np s" onclick="S.fresh=null;render()">حفظتهم، تسجيل الدخول</button></div>`;
+ else if(S.cred&&!d){h=head(1)+msg+busy;if(!S.busy)refresh()}
+ else if(d&&!d.paid)h=head(1)+msg+busy+`<div class="card"><h2>أهلاً ${esc(d.name)}</h2><p>حسابك <b class="bad">Pending ⏳</b><br>ادفع الاشتراك للإدارة، وبعد ما يتأكد الدفع الموقع هيفتح معاك.</p><button class="s" onclick="refresh()">تحديث</button></div>`;
+ else if(d&&d.group===null)h=head(1)+msg+busy+`<div class="card"><h2>اختار مجموعتك</h2><p class="m">كل مجموعة حدها الأقصى ${d.cap} ولد. الاختيار مرة واحدة.</p></div>`+
+  d.names.map((n,i)=>{const c=d.counts[i],f=c>=d.cap;return `<div class="card"><div class="g"><b>${esc(n)}</b><span class="m">${c}/${d.cap}</span></div><div class="bar"><i style="width:${Math.min(100,c/d.cap*100)}%"></i></div><button ${f?'disabled':''} onclick="join(${i})">${f?'مكتملة':'انضم'}</button></div>`}).join('');
+ else if(d)h=head(1)+msg+busy+`<div class="card"><h2>أهلاً ${esc(d.name)}</h2><div class="g"><span>مجموعتك: <b>${esc(d.names[d.group])}</b></span><span>نقطك: <b class="ok">${d.points}</b></span></div></div>
+  <div class="card"><h2>سجّل حضورك</h2><input id="cd" placeholder="اكتب كود الاجتماع" dir="ltr" style="text-align:center;letter-spacing:3px"><button onclick="redeem()">تأكيد الحضور</button></div>
+  <div class="card"><h2>أعضاء مجموعتك (${d.members.length})</h2>${d.members.map(x=>`<div class="g"><span>${esc(x.name)}${x.me?' (أنت)':''}</span><span class="m">${x.points} نقطة</span></div>`).join('')}</div>
+  <div class="card"><h2>ترتيب المجموعات</h2>${d.board.map((x,i)=>`<div class="g"><span>${i+1}. ${esc(x.name)}</span><b>${x.points}</b></div>`).join('')}</div>`;
+ else h=head(0)+msg+busy+`<div class="card"><div class="tabs">${[['login','دخول'],['reg','اشتراك جديد']].map(([k,l])=>`<button class="${S.tab==k?'':'s'}" onclick="S.tab='${k}';S.msg='';render()">${l}</button>`).join('')}</div>
+  ${S.tab=='reg'?`<input id="n" placeholder="الاسم ثلاثي بالعربي"><input id="ph" type="tel" inputmode="numeric" placeholder="رقم الموبايل (عليه واتساب)" dir="ltr"><select id="cl"><option value="">الفصل (إعدادي)</option><option>أولى إعدادي</option><option>ثانية إعدادي</option><option>ثالثة إعدادي</option></select><input id="p" type="password" placeholder="اختار باسورد"><button onclick="reg()">اشترك في المهرجان</button>`
+  :`<input id="u" placeholder="اسم المستخدم" dir="ltr"><input id="p" type="password" placeholder="الباسورد"><button onclick="login()">دخول</button>`}</div>`;
+ $('app').innerHTML=h}
+render();
+</script></body></html>
