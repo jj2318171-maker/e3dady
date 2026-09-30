@@ -144,7 +144,7 @@ function render(){
  }else{
   const R=S.tab=='reg';
   h=head(0)+msg+`<div class="card glow in"><div class="tabs">${[['login','دخول'],['reg','اشتراك جديد']].map(([k,l])=>`<button class="${S.tab==k?'':'s'}" onclick="keep();S.tab='${k}';S.msg='';render()">${l}</button>`).join('')}</div>
-  ${R?`<input id="n" placeholder="الاسم ثلاثي بالعربي" autocomplete="name"><input id="ph" type="tel" inputmode="numeric" placeholder="رقم الموبايل (عليه واتساب)" dir="ltr"><select id="cl"><option value="">الفصل (إعدادي)</option><option>أولى إعدادي</option><option>ثانية إعدادي</option><option>ثالثة إعدادي</option></select><input id="p" type="password" placeholder="اختار باسورد" autocomplete="new-password"><button onclick="reg()">اشترك في المهرجان</button>`
+  ${R?`<input id="n" placeholder="الاسم ثلاثي بالعربي" autocomplete="name"><input id="ph" type="tel" inputmode="numeric" placeholder="رقم الموبايل (عليه واتساب)" dir="ltr"><select id="cl"><option value="">الفصل</option><option>أولى إعدادي</option><option>ثانية إعدادي</option><option>ثالثة إعدادي</option></select><input id="p" type="password" placeholder="اختار باسورد" autocomplete="new-password"><button onclick="reg()">اشترك في المهرجان</button>`
   :`<input id="u" placeholder="اسم المستخدم" dir="ltr" autocomplete="username" autocapitalize="none"><input id="p" type="password" placeholder="الباسورد" autocomplete="current-password"><button onclick="login()">دخول</button>`}</div>`;
  }
  $('app').innerHTML=h;
