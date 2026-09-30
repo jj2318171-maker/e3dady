@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#bfe4ff">
+<title>إدارة مهرجان الكرازة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--sky:#6cc6ff;--az:#2a86e0;--deep:#154a94;--t:#16345c;--m:#6784a6;--line:#d3e9fb;--ok:#1f9d63;--bad:#d6455d;--glow:0 0 24px rgba(74,167,255,.45);--f:"Cairo",Tahoma,"Segoe UI",sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;min-height:100vh;color:var(--t);font-family:var(--f);line-height:1.7;
+ background:radial-gradient(700px 380px at 85% -5%,rgba(255,255,255,.9),transparent 65%),linear-gradient(180deg,#b5e0ff 0%,#dbf0ff 38%,#f6fbff 100%);background-attachment:fixed}
+.cl{position:fixed;z-index:0;pointer-events:none;border-radius:999px;background:#fff;opacity:.7}
+.cl::before,.cl::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cl::before{width:55%;height:180%;left:12%;top:-80%}.cl::after{width:40%;height:140%;right:12%;top:-50%}
+.c1{top:11%;left:-4%;width:150px;height:38px}.c2{top:40%;right:-6%;width:200px;height:48px;opacity:.5}
+.w{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:calc(env(safe-area-inset-top,0px) + 18px) 16px calc(env(safe-area-inset-bottom,0px) + 40px)}
+.top{text-align:center;margin-bottom:18px}
+.logo{width:64px;height:64px;margin:0 auto 6px;border-radius:50%;display:grid;place-items:center;font-size:30px;color:#fff;background:radial-gradient(circle at 30% 25%,#a5dcff,var(--az));box-shadow:var(--glow),inset 0 2px 0 rgba(255,255,255,.6)}
+h1{font-size:26px;font-weight:900;margin:0;color:var(--deep)}
+h2{font-size:18px;font-weight:700;margin:0 0 8px;color:var(--deep)}
+.sub{color:var(--m);font-size:14px}
+.card{background:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.95);border-radius:22px;padding:16px;margin-bottom:12px;box-shadow:0 10px 26px rgba(42,134,224,.15),inset 0 1px 0 #fff}
+label{display:block;font-size:13px;font-weight:600;color:var(--m);margin:8px 4px 0}
+input,button{font:inherit;width:100%;margin:4px 0;border-radius:14px}
+input{padding:12px 14px;color:var(--t);background:#fff;border:1.5px solid var(--line);outline:0}
+input:focus{border-color:var(--sky);box-shadow:0 0 0 4px rgba(108,198,255,.28)}
+input::placeholder{color:#9db6d0}
+button{padding:12px;border:0;font-weight:700;color:#fff;cursor:pointer;background:linear-gradient(135deg,var(--sky),var(--az));box-shadow:0 6px 16px rgba(42,134,224,.32)}
+button:active{transform:scale(.97)}
+button.s{background:#fff;color:var(--az);border:1.5px solid var(--line);box-shadow:none}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.g{display:flex;justify-content:space-between;align-items:center;gap:10px}.g button{width:auto;padding:10px 16px;white-space:nowrap}
+.m{color:var(--m);font-size:14px}
+.note{border-radius:14px;padding:11px 14px;margin-bottom:12px;font-weight:600}
+.note.ok{background:#e6f8ef;color:#136b43}.note.bad{background:#ffe9ed;color:#a3293f}
+.bar{height:8px;background:#e3f1fd;border-radius:9px;overflow:hidden;margin:8px 0 0}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sky),var(--az))}
+.bt{position:fixed;top:0;left:0;right:0;height:3px;z-index:9;opacity:0;background:linear-gradient(90deg,transparent,var(--az),transparent) no-repeat;background-size:45% 100%}
+body.busy .bt{opacity:1;animation:sw 1s linear infinite}body.busy button{pointer-events:none;opacity:.7}
+@keyframes sw{from{background-position:130% 0}to{background-position:-130% 0}}
+#sheet{display:none}
+@page{size:A4;margin:8mm}
+@media print{
+ body{background:#fff}.cl,.bt,.w{display:none!important}#sheet{display:block}
+ .pg{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:35mm;height:281mm;break-after:page;page-break-after:always}
+ .pg:last-child{break-after:auto;page-break-after:auto}
+ .cd{border:1px dashed #555;margin:1mm;padding:2mm;text-align:center;display:flex;flex-direction:column;justify-content:center;font-size:11px;overflow:hidden}
+ .cd b{font-size:13px}.cd .c{font-family:monospace;font-size:20px;letter-spacing:3px;direction:ltr;margin:3px 0}
+}
+</style></head><body>
+<div class="bt"></div><i class="cl c1"></i><i class="cl c2"></i>
+<div class="w" id="app"></div><div id="sheet"></div>
+<script>
+const API_URL='https://script.google.com/macros/s/AKfycbxZta1cg9z1qkrxJUtygVwn4xodpn9CqrNJRt12pCoe2kk0xjlfp7wNATQrnhh5KoU/exec';
+let S={pw:null,list:null,cols:[],msg:'',ok:'',codes:{},d:{},tab:'c',tasks:null,tl:0},inflight=false;
+try{S.pw=sessionStorage.getItem('kza')}catch(e){}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=id=>document.getElementById(id);
+const IDS=['ap','mn','mc','mp','mk'];
+const nq=()=>({q:'',o:['','','',''],a:0,p:1}),newT=()=>({title:'',min:'',col:'',close:'',qs:[nq()]});let T=newT();
+async function mkTask(){S.msg='';S.ok='';const qs=[];
+ for(const x of T.qs){const o=x.o.map((t,i)=>[t.trim(),i]).filter(e=>e[0]),a=o.findIndex(e=>e[1]===x.a);
+  if(!x.q.trim()||o.length<2||a<0||!(x.p>0))return say('راجع الأسئلة: نص + اختيارين على الأقل + إجابة صح محددة + درجة');
+  qs.push({q:x.q.trim(),o:o.map(e=>e[0]),a,p:x.p})}
+ if(!T.title.trim()||!(+T.min>=1))return say('اكتب اسم التاسك والمدة');
+ if(!T.col.trim())return say('اكتب العمود اللي هتتسجل فيه الدرجة');
+ const j=await api('admin_task_create',{title:T.title.trim(),minutes:+T.min,col:T.col.trim(),closeAt:T.close?new Date(T.close).getTime():0,questions:qs});
+ if(j){S.tasks=j.tasks;S.ok='تم نشر التاسك ✅';T=newT()}render()}
+async function closeTask(id,c){S.msg='';S.ok='';const j=await api('admin_task_close',{id,closed:c});if(j)S.tasks=j.tasks;render()}
+function tasksAdmin(){
+ if(!S.tasks&&!S.tl&&!inflight){S.tl=1;api('admin_task_list').then(j=>{if(j)S.tasks=j.tasks;render()})}
+ const qh=T.qs.map((x,i)=>`<div class="card" style="background:#f4faff"><div class="g"><b>سؤال ${i+1}</b>${T.qs.length>1?`<button class="s" onclick="T.qs.splice(${i},1);render()">حذف</button>`:''}</div>
+ <input placeholder="نص السؤال" value="${esc(x.q)}" oninput="T.qs[${i}].q=this.value">
+ ${x.o.map((o,j)=>`<div class="g"><input type="radio" name="a${i}" style="width:auto;flex:none" ${x.a===j?'checked':''} onchange="T.qs[${i}].a=${j}"><input placeholder="اختيار ${j+1}" value="${esc(o)}" oninput="T.qs[${i}].o[${j}]=this.value"></div>`).join('')}
+ <div class="m">الدايرة = الإجابة الصح</div><label>درجة السؤال</label><input type="number" inputmode="numeric" value="${x.p}" oninput="T.qs[${i}].p=+this.value"></div>`).join('');
+ return `<div class="card"><h2>إنشاء تاسك جديد</h2><label>اسم التاسك</label><input value="${esc(T.title)}" oninput="T.title=this.value">
+ <div class="row"><div><label>المدة (دقايق)</label><input type="number" inputmode="numeric" value="${esc(T.min)}" oninput="T.min=this.value"></div><div><label>عمود السكور (حرف أو اسم)</label><input list="tcols" placeholder="G أو اسم عمود" value="${esc(T.col)}" oninput="T.col=this.value"><datalist id="tcols">${S.cols.map(c=>`<option value="${esc(c)}">`).join('')}</datalist></div></div>
+ <label>يقفل تلقائيًا في (اختياري)</label><input type="datetime-local" value="${esc(T.close)}" oninput="T.close=this.value">${qh}
+ <button class="s" onclick="T.qs.push(nq());render()">+ إضافة سؤال</button><button onclick="mkTask()">نشر التاسك</button></div>`+
+ (S.tasks||[]).map(t=>`<div class="card"><div class="g"><div><b>${esc(t.title)}</b><div class="m">${t.minutes} دقيقة — ${t.qn} سؤال — ${t.total} درجة — عمود ${esc(t.col)}</div><div class="m">سلّم ${t.submitted} من ${t.started} بدأوا</div><div class="m">${t.closed?'🔒 مقفول':'🟢 مفتوح'}</div></div><button onclick="closeTask('${t.id}',${!t.closed})">${t.closed?'فتح':'قفل'}</button></div></div>`).join('')}
+
+function keep(){IDS.forEach(i=>{const e=$(i);if(e)S.d[i]=e.value})}
+async function api(action,x){
+ if(inflight)return null;inflight=true;document.body.classList.add('busy');
+ try{
+  const ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),40000);
+  const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},signal:ctl.signal,body:JSON.stringify({action,adminPass:S.pw,...x})});
+  clearTimeout(to);const j=await r.json();if(!j.ok)throw new Error(j.error||'حصل خطأ');return j;
+ }catch(e){S.msg=e.name==='AbortError'||e.message==='Failed to fetch'?'مشكلة في الاتصال، جرب تاني':e.message;return null}
+ finally{inflight=false;document.body.classList.remove('busy')}
+}
+async function load(){const j=await api('admin_meetings');if(j){S.list=j.meetings;S.cols=j.cols}}
+async function login(){keep();S.pw=$('ap').value;S.msg='';await load();
+ if(S.list){try{sessionStorage.setItem('kza',S.pw)}catch(e){}S.d={}}else S.pw=null;render()}
+async function create(){keep();S.msg='';S.ok='';
+ const D=S.d,name=(D.mn||'').trim(),col=(D.mc||'').trim(),pts=+D.mp,n=Math.floor(+D.mk);
+ if(!name)return say('اكتب اسم الاجتماع');
+ if(!col)return say('اكتب اسم العمود اللي هيتكتب فيه السكور');
+ if(!(pts>0))return say('اكتب السكور (رقم أكبر من صفر)');
+ if(!(n>=1&&n<=500))return say('عدد الأكواد من 1 لـ 500');
+ const j=await api('admin_create',{name,col,points:pts,count:n});
+ if(j){S.list=j.meetings;S.cols=j.cols;S.codes[name]=j.codes;S.ok='تم إنشاء '+n+' كود ✅ دوس طباعة';S.d={}}
+ render()}
+const say=m=>{S.msg=m;render()};
+async function printM(i){const m=S.list[i];S.msg='';
+ if(!S.codes[m.name]){const j=await api('admin_codes',{name:m.name});if(!j)return render();S.codes[m.name]=j.codes}
+ const c=S.codes[m.name],pg=[];
+ for(let k=0;k<c.length;k+=24)pg.push(c.slice(k,k+24));
+ $('sheet').innerHTML=pg.map(p=>'<div class="pg">'+p.map(x=>`<div class="cd"><div class="m">✝ مهرجان الكرازة</div><b>${esc(m.name)}</b><div class="m">${String(x.serial).padStart(3,'0')} — ${m.points} نقطة</div><div class="c">${x.code}</div></div>`).join('')+'</div>').join('');
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{window.print();setTimeout(()=>{$('sheet').innerHTML=''},1500)}));
+}
+function out(){S={pw:null,list:null,cols:[],msg:'',ok:'',codes:{},d:{},tab:'c',tasks:null,tl:0};try{sessionStorage.removeItem('kza')}catch(e){}render()}
+function render(){keep();
+ let h='<div class="top"><div class="logo">✝</div><h1>إدارة المهرجان</h1><div class="sub">أكواد الحضور والنقاط</div></div>';
+ if(S.msg)h+=`<div class="note bad">${esc(S.msg)}</div>`;if(S.ok)h+=`<div class="note ok">${esc(S.ok)}</div>`;
+ if(!S.pw)h+='<div class="card"><input id="ap" type="password" placeholder="باسورد الإدارة"><button onclick="login()">دخول</button></div>';
+ else{
+  if(!S.list&&!inflight){load().then(render)}
+  h+=`<div class="row"><button class="${S.tab=='c'?'':'s'}" onclick="S.tab='c';render()">الأكواد</button><button class="${S.tab=='t'?'':'s'}" onclick="S.tab='t';render()">التاسكات</button></div>`;
+  if(S.tab==='t')h+=tasksAdmin();else{
+  h+=`<div class="card"><h2>إنشاء أكواد جديدة</h2>
+  <label>اسم الاجتماع</label><input id="mn" placeholder="مثلا: اجتماع الجمعة">
+  <label>العمود اللي هيتكتب فيه السكور (شيت Score)</label><input id="mc" list="cols" placeholder="اسم عمود جديد أو موجود"><datalist id="cols">${S.cols.map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
+  <div class="row"><div><label>السكور لكل ولد</label><input id="mp" type="number" inputmode="numeric" placeholder="500"></div><div><label>عدد الأكواد</label><input id="mk" type="number" inputmode="numeric" placeholder="لحد 500"></div></div>
+  <button onclick="create()">إنشاء الأكواد</button></div>`;
+  h+=(S.list||[]).map((m,i)=>`<div class="card"><div class="g"><div><b>${esc(m.name)}</b><div class="m">العمود: ${esc(m.col)} — ${m.points} نقطة</div><div class="m">استُخدم ${m.used} من ${m.total}</div></div><button onclick="printM(${i})">🖨 طباعة</button></div><div class="bar"><i style="width:${m.total?m.used/m.total*100:0}%"></i></div></div>`).join('');
+  }h+='<button class="s" onclick="out()">خروج</button>';
+ }
+ $('app').innerHTML=h;
+ IDS.forEach(i=>{if($(i)&&S.d[i])$(i).value=S.d[i]});
+ const ap=$('ap');if(ap)ap.addEventListener('keydown',e=>{if(e.key==='Enter')login()});
+}
+render();
+</script></body></html>
