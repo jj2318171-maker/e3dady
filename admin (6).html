@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>إدارة مهرجان الكرازة</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#faf6ee;color:#2a2118;font-family:Tahoma,Arial,sans-serif;line-height:1.7}
+.w{max-width:640px;margin:0 auto;padding:16px}h1{font-size:22px}h2{font-size:18px;margin:0 0 8px}
+.card{background:#fff;border:1px solid #e6dccb;border-radius:14px;padding:16px;margin-bottom:12px}
+input,button{font:inherit;padding:10px;border-radius:10px;border:1px solid #e6dccb;width:100%;margin:4px 0}
+button{background:#a4262c;color:#fff;border:0;cursor:pointer;font-weight:bold}button.s{background:#e6dccb;color:#2a2118}
+.g{display:flex;justify-content:space-between;align-items:center;gap:8px}.g button{width:auto}.m{color:#7a6a58;font-size:14px}.bad{color:#a4262c}
+#sheet{display:none}
+@page{size:A4;margin:8mm}
+@media print{body{background:#fff}.no{display:none!important}#sheet{display:block}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(8,1fr);height:281mm;page-break-after:always;break-after:page}
+.pg:last-child{page-break-after:auto;break-after:auto}}
+.cd{border:1px dashed #555;margin:1mm;padding:2mm;text-align:center;display:flex;flex-direction:column;justify-content:center;font-size:11px;overflow:hidden}
+.cd b{font-size:13px}.cd .c{font-family:monospace;font-size:20px;letter-spacing:3px;direction:ltr;margin:3px 0}
+</style></head><body><div class="w no" id="app"></div><div id="sheet"></div>
+<script>
+const API_URL='https://script.google.com/macros/s/AKfycbxZta1cg9z1qkrxJUtygVwn4xodpn9CqrNJRt12pCoe2kk0xjlfp7wNATQrnhh5KoU/exec';
+let S={pw:null,list:null,msg:'',busy:false};try{S.pw=sessionStorage.getItem('kza')}catch(e){}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=id=>document.getElementById(id);
+async function api(action,x){S.busy=true;render();
+ try{const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,adminPass:S.pw,...x})});
+ const j=await r.json();S.busy=false;if(!j.ok)throw new Error(j.error);return j}
+ catch(e){S.busy=false;S.msg=e.message;render();return null}}
+async function login(){S.pw=$('ap').value;S.msg='';await load();if(!S.list)S.pw=null;else try{sessionStorage.setItem('kza',S.pw)}catch(e){}render()}
+async function load(){const j=await api('admin_meetings');if(j){S.list=j.meetings;S.cols=j.cols}}
+async function create(){const j=await api('admin_create',{name:$('mn').value,points:$('mp').value,count:$('mk').value});
+ if(j){S.msg='';await load()}render()}
+async function printM(i){const m=S.list[i],j=await api('admin_codes',{name:m.name});if(!j)return;
+ const c=j.codes,pages=[];
+ for(let k=0;k<c.length;k+=24)pages.push(c.slice(k,k+24));
+ $('sheet').innerHTML=pages.map(p=>`<div class="pg">${p.map(x=>`<div class="cd"><div class="m">✝ مهرجان الكرازة</div><b>${esc(m.name)}</b><div class="m">سيريال: ${String(x.serial).padStart(3,'0')} — ${m.points} نقطة</div><div class="c">${x.code}</div></div>`).join('')}</div>`).join('');
+ render();setTimeout(()=>window.print(),200)}
+function out(){S={pw:null,list:null,msg:'',busy:false};try{sessionStorage.removeItem('kza')}catch(e){}render()}
+function render(){let h='<h1>✝ إدارة المهرجان</h1>';
+ if(S.msg)h+=`<div class="card bad">${esc(S.msg)}</div>`;if(S.busy)h+='<div class="card m">⏳ لحظة...</div>';
+ if(!S.pw)h+='<div class="card"><input id="ap" type="password" placeholder="باسورد الإدارة"><button onclick="login()">دخول</button></div>';
+ else{if(!S.list&&!S.busy)load().then(render);
+  h+=`<div class="card"><h2>اجتماع جديد</h2><input id="mn" list="cols" placeholder="اسم العمود في شيت Score (اجتماع جديد أو تاسك موجود)"><datalist id="cols">${(S.cols||[]).map(c=>`<option value="${esc(c)}">`).join('')}</datalist><input id="mp" type="number" placeholder="النقط اللي هتتضاف لكل ولد (مثلا 500)"><input id="mk" type="number" placeholder="عدد الأكواد (لحد 500)"><button onclick="create()">إنشاء الأكواد</button></div>`;
+  h+=(S.list||[]).map((m,i)=>`<div class="card"><div class="g"><div><b>${esc(m.name)}</b><div class="m">${m.points} نقطة — استُخدم ${m.used} من ${m.total}</div></div><button onclick="printM(${i})">🖨 طباعة</button></div></div>`).join('');
+  h+='<button class="s" onclick="out()">خروج</button>'}
+ $('app').innerHTML=h}
+render();
+</script></body></html>
