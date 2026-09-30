@@ -159,7 +159,7 @@ function out(){dropSession();S.view='home';S.quiz=null;clearInterval(S.iv);S.pro
 const LOGO='logo.png';// اسم ملف الشعار (ارفعه جنب index.html على GitHub). لو الملف مش موجود بيظهر الصليب
 const FEST='محبة أبدية';// اسم المهرجان
 const CHURCH='خدمة فتيان إعدادي - كنيسة الشهيد العظيم مارمينا - مطرانية الأقباط الأرثوذكس بالفيوم';
-const head=t=>`<div class="top">${t?'<button class="s out" onclick="out()">خروج</button>':''}${S.data&&S.data.paid&&!S.quiz?`<button class="s mb" onclick="tg(1)" aria-label="القائمة">${ic('menu')}</button>`:''}<div class="logo${LOGO?' has':''}">${LOGO?`<img src="${LOGO}" alt="شعار المهرجان" onerror="this.parentNode.className='logo';this.parentNode.innerHTML=ic('cross')">`:ic('cross')}</div><h1 class="fest">${esc(FEST)}</h1><div class="sub">نكرز بالمسيح ونبني معًا</div><div class="ch">${esc(CHURCH)}</div></div>`;
+const head=t=>`<div class="top">${t?'<button class="s out" onclick="out()">خروج</button>':''}${S.data&&S.data.paid&&!S.quiz?`<button class="s mb" onclick="tg(1)" aria-label="القائمة">${ic('menu')}</button>`:''}<div class="logo${LOGO?' has':''}">${LOGO?`<img src="${LOGO}" alt="شعار المهرجان" onerror="this.parentNode.className='logo';this.parentNode.innerHTML=ic('cross')">`:ic('cross')}</div><h1 class="fest">${esc(FEST)}</h1><div class="sub">مهرجان الصيف 2027</div><div class="ch">${esc(CHURCH)}</div></div>`;
 
 const PAY=`<div class="pay">${ic('card')} <b>طريقة دفع الاشتراك (100 جنيه)</b><br>• ادفعها في الاجتماع<br>• أو حوّل على انستاباي على رقم <b dir="ltr">01555033144</b>، وابعت بعدها سكرين التحويل لنفس الرقم مع اسمك ثلاثي.</div>`;
 const tg=o=>{S.drawer=!!o;['dr','ov'].forEach(i=>$(i)&&$(i).classList.toggle('open',S.drawer))};
