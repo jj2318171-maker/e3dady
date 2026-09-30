@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#bfe4ff">
+<title>مهرجان الكرازة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--sky:#6cc6ff;--az:#2a86e0;--deep:#154a94;--t:#16345c;--m:#6784a6;--line:#d3e9fb;
+ --ok:#1f9d63;--bad:#d6455d;--glow:0 0 24px rgba(74,167,255,.45);--f:"Cairo",Tahoma,"Segoe UI",sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;min-height:100vh;color:var(--t);font-family:var(--f);line-height:1.7;
+ background:radial-gradient(700px 380px at 85% -5%,rgba(255,255,255,.9),transparent 65%),
+ linear-gradient(180deg,#b5e0ff 0%,#dbf0ff 38%,#f6fbff 100%);background-attachment:fixed}
+.cl{position:fixed;z-index:0;pointer-events:none;border-radius:999px;background:#fff;filter:blur(2px);opacity:.75;animation:dr 40s linear infinite alternate}
+.cl::before,.cl::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cl::before{width:55%;height:180%;left:12%;top:-80%}.cl::after{width:40%;height:140%;right:12%;top:-50%}
+.c1{top:11%;left:-4%;width:150px;height:38px}.c2{top:36%;right:-6%;width:200px;height:48px;animation-duration:55s;opacity:.55}
+.c3{bottom:12%;left:8%;width:170px;height:42px;animation-duration:48s;opacity:.5}
+@keyframes dr{to{transform:translateX(70px)}}
+.w{position:relative;z-index:1;max-width:500px;margin:0 auto;padding:calc(env(safe-area-inset-top,0px) + 18px) 16px calc(env(safe-area-inset-bottom,0px) + 40px)}
+.top{text-align:center;margin-bottom:20px;position:relative}
+.logo{width:92px;height:92px;margin:0 auto 8px;border-radius:50%;display:grid;place-items:center;font-size:44px;color:#fff;
+ background:radial-gradient(circle at 30% 25%,#a5dcff,var(--az));box-shadow:var(--glow),inset 0 2px 0 rgba(255,255,255,.6);animation:pu 4s ease-in-out infinite}
+@keyframes pu{50%{box-shadow:0 0 38px rgba(74,167,255,.7),inset 0 2px 0 rgba(255,255,255,.6)}}
+h1{font-size:31px;font-weight:900;margin:0;color:var(--deep);letter-spacing:.3px}
+.sub{color:var(--m);font-size:14px}
+h2{font-size:19px;font-weight:700;margin:0 0 10px;color:var(--deep)}
+.card{background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.95);border-radius:24px;padding:18px;margin-bottom:14px;
+ -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 12px 32px rgba(42,134,224,.16),inset 0 1px 0 #fff}
+.card.glow{box-shadow:0 12px 34px rgba(42,134,224,.22),0 0 36px rgba(108,198,255,.35),inset 0 1px 0 #fff}
+.card.in{animation:up .55s cubic-bezier(.2,.8,.2,1) both}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+input,select,button{font:inherit;width:100%;margin:6px 0;border-radius:16px}
+input,select{padding:13px 15px;color:var(--t);background:#fff;border:1.5px solid var(--line);outline:0;transition:border-color .25s,box-shadow .25s}
+input::placeholder{color:#9db6d0}
+input:focus,select:focus{border-color:var(--sky);box-shadow:0 0 0 4px rgba(108,198,255,.28)}
+button{padding:13px;border:0;font-weight:700;color:#fff;cursor:pointer;background:linear-gradient(135deg,var(--sky),var(--az));
+ box-shadow:0 8px 20px rgba(42,134,224,.35),inset 0 1px 0 rgba(255,255,255,.45);transition:transform .2s,box-shadow .25s}
+button:hover{box-shadow:0 10px 28px rgba(42,134,224,.5),var(--glow)}
+button:active{transform:scale(.97)}
+button.s{background:#fff;color:var(--az);border:1.5px solid var(--line);box-shadow:none}
+button:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--az);outline-offset:2px}
+.out{position:absolute;top:0;inset-inline-start:0;width:auto;margin:0;padding:6px 16px;font-size:13px}
+.tabs{display:flex;gap:4px;padding:4px;background:rgba(108,198,255,.18);border-radius:18px;margin-bottom:10px}
+.tabs button{margin:0;padding:10px}.tabs button.s{background:transparent;border:0;color:var(--m)}
+.g{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0}
+.g+.g{border-top:1px solid var(--line)}
+.m{color:var(--m);font-size:14px}.ok{color:var(--ok)}.bad{color:var(--bad)}
+.pts{font-size:26px;font-weight:900;color:var(--az)}
+.bar{height:10px;background:#e3f1fd;border-radius:9px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--sky),var(--az));box-shadow:var(--glow);transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.cred{font-family:ui-monospace,Menlo,monospace;font-size:18px;background:#fff;border:1.5px dashed var(--sky);padding:10px;border-radius:14px;direction:ltr;text-align:left;margin:4px 0 10px;color:var(--deep)}
+.warn{background:#fff8e1;border:1px solid #ffe19a;color:#7a5a00;border-radius:16px;padding:12px;margin:10px 0;font-size:14px}
+.note{border-radius:16px;padding:12px 14px;margin-bottom:14px;font-weight:600;animation:up .4s both}
+.note.ok{background:#e6f8ef;color:#136b43}.note.bad{background:#ffe9ed;color:#a3293f}
+details summary{cursor:pointer;color:var(--m);font-size:14px;padding:4px 0}
+.bt{position:fixed;top:0;left:0;right:0;height:3px;z-index:9;opacity:0;transition:opacity .2s;background:linear-gradient(90deg,transparent,var(--az),transparent) no-repeat;background-size:45% 100%}
+body.busy .bt{opacity:1;animation:sw 1s linear infinite}
+@keyframes sw{from{background-position:130% 0}to{background-position:-130% 0}}
+body.busy button{pointer-events:none;opacity:.7}
+.mb{position:absolute;top:0;inset-inline-end:0;width:auto;margin:0;padding:6px 14px;font-size:18px}
+.pay{background:#eaf6ff;border:1px solid #bfe0ff;color:#154a94;border-radius:16px;padding:12px 14px;margin:10px 0;font-size:14px;line-height:1.9}
+.logo.has{width:140px;height:140px;border-radius:0;background:none;box-shadow:none;animation:none}.logo img{width:100%;height:100%;object-fit:contain}
+.fest{display:inline-block;margin:10px 0 4px;padding:3px 28px;border-radius:24px;font-size:26px;line-height:1.6;font-weight:900;letter-spacing:.5px;color:var(--deep);text-shadow:0 0 16px rgba(108,198,255,.95);border:2.5px solid transparent;
+ background:linear-gradient(180deg,#fff,#e6f4ff) padding-box,linear-gradient(110deg,#8fd3ff,#2a86e0,#d6efff,#6cc6ff,#2a86e0) border-box;background-size:100% 100%,300% 100%;
+ box-shadow:0 0 22px rgba(74,167,255,.55),0 12px 30px rgba(42,134,224,.22),inset 0 0 20px rgba(108,198,255,.3);animation:gl 4s ease-in-out infinite,bd 6s linear infinite}
+@keyframes gl{50%{box-shadow:0 0 34px rgba(108,198,255,.95),0 12px 34px rgba(42,134,224,.3),inset 0 0 26px rgba(108,198,255,.45)}}
+@keyframes bd{to{background-position:0 0,300% 0}}
+.ch{color:var(--m);font-size:13px;line-height:1.9;margin-top:8px;font-weight:600}
+.av{width:96px;height:96px;border-radius:50%;margin:0 auto 8px;display:grid;place-items:center;font-size:44px;background:#e3f1fd;overflow:hidden;box-shadow:var(--glow)}.av img{width:100%;height:100%;object-fit:cover}
+.ov{position:fixed;inset:0;z-index:20;background:rgba(21,74,148,.35);opacity:0;pointer-events:none;transition:opacity .3s}.ov.open{opacity:1;pointer-events:auto}
+.pn{position:fixed;top:0;bottom:0;left:0;width:min(280px,82vw);z-index:21;background:rgba(255,255,255,.97);padding:calc(env(safe-area-inset-top,0px) + 22px) 16px 20px;border-radius:0 24px 24px 0;box-shadow:10px 0 34px rgba(42,134,224,.3);transform:translateX(-105%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}.pn.open{transform:none}
+.pn button{text-align:start;padding:13px 16px}
+.op{display:flex;gap:10px;align-items:center;padding:11px 13px;border:1.5px solid var(--line);border-radius:14px;margin:7px 0;background:#fff;cursor:pointer}.op input{width:auto;margin:0;flex:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{body{background:#fff}.cl{display:none}body *{visibility:hidden}#idcard,#idcard *{visibility:visible}#idcard{position:absolute;top:0;left:0;right:0;box-shadow:none;border:2px dashed var(--az);background:#fff}.np{display:none!important}}
+</style></head><body>
+<div class="bt"></div><i class="cl c1"></i><i class="cl c2"></i><i class="cl c3"></i>
+<div class="w" id="app"></div>
+<script>
+const API_URL='https://script.google.com/macros/s/AKfycbxZta1cg9z1qkrxJUtygVwn4xodpn9CqrNJRt12pCoe2kk0xjlfp7wNATQrnhh5KoU/exec';
+let S={tab:'login',cred:null,data:null,msg:'',fresh:null,draft:{},view:'home',drawer:false,prof:null,tasks:null,quiz:null,iv:0};
+try{S.cred=JSON.parse(sessionStorage.getItem('kzc'))}catch(e){}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=id=>document.getElementById(id);
+let inflight=false;
+// طلب واحد في المرة، من غير render أثناءه، ومعاه مهلة وإعادة محاولة تلقائية لطلب القراءة
+async function api(action,extra,cred,retry){
+ if(inflight&&!retry)return null;
+ inflight=true;document.body.classList.add('busy');
+ try{
+  const ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),20000);
+  const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},signal:ctl.signal,
+   body:JSON.stringify({action,...(cred||S.cred||{}),...extra})});
+  clearTimeout(to);
+  const j=await r.json();
+  if(!j.ok)throw new Error(j.error||'حصل خطأ');
+  inflight=false;document.body.classList.remove('busy');return j;
+ }catch(e){
+  const net=e.name==='AbortError'||e.message==='Failed to fetch';
+  if(action==='me'&&net&&!retry)return api(action,extra,cred,1);
+  inflight=false;document.body.classList.remove('busy');
+  S.msg=net?'مشكلة في الاتصال، جرب تاني':e.message;
+  return null;
+ }
+}
+const save=()=>{try{sessionStorage.setItem('kzc',JSON.stringify(S.cred))}catch(e){}};
+function keep(){['n','ph','cl','u'].concat(S.tab=='reg'?['p']:[]).forEach(i=>{const e=$(i);if(e)S.draft[i]=e.value})}
+const say=m=>{S.msg=m;render()};
+async function reg(){
+ const name=$('n').value.trim().replace(/\s+/g,' '),phone=$('ph').value.trim(),cls=$('cl').value,password=$('p').value;
+ keep();S.msg='';
+ if(!/^[\u0621-\u064A]+( [\u0621-\u064A]+){2,}$/.test(name))return say('اكتب الاسم ثلاثي بالعربي');
+ if(!cls)return say('اختار الفصل');
+ if(!S.regImg)return say('لازم تحط صورتك الشخصية');
+ if(!password)return say('اختار باسورد');
+ const j=await api('register',{name,phone,cls,password,img:S.regImg},{});
+ if(j){S.fresh={u:j.username,p:password,name,cls};S.tab='login';S.draft={};S.regImg=null}
+ render();
+}
+async function login(){
+ const cred={username:$('u').value.trim(),password:$('p').value};keep();S.msg='';
+ if(!cred.username||!cred.password)return say('اكتب اسم المستخدم والباسورد');
+ const j=await api('me',{},cred);
+ if(j){S.cred=cred;S.data=j;S.draft={};save()}
+ render();
+}
+async function refresh(){const j=await api('me');if(j){S.data=j;S.msg=''}else if(!S.data)dropSession();render()}
+async function join(g){const j=await api('join',{group:g});if(j){S.data=j;S.msg=''}render()}
+async function redeem(){const code=$('cd').value.trim();if(!code)return say('اكتب كود الاجتماع');
+ const j=await api('redeem',{code});if(j){S.data=j;S.msg='تمام! خدت '+j.gained+' نقطة ✅'}render()}
+function dropSession(){S.cred=null;S.data=null;try{sessionStorage.removeItem('kzc')}catch(e){}}
+function out(){dropSession();S.view='home';S.quiz=null;clearInterval(S.iv);S.prof=S.tasks=S.rank=S.grp=null;S.drawer=false;S.fresh=null;S.msg='';S.tab='login';render()}
+// ===== إعدادات الواجهة: غيّرها من هنا براحتك =====
+const LOGO='logo.png';// اسم ملف الشعار (ارفعه جنب index.html على GitHub). لو الملف مش موجود بيظهر الصليب
+const FEST='محبة أبدية';// اسم المهرجان
+const CHURCH='خدمة فتيان إعدادي - كنيسة الشهيد العظيم مارمينا - مطرانية الأقباط الأرثوذكس بالفيوم';
+const head=t=>`<div class="top">${t?'<button class="s out" onclick="out()">خروج</button>':''}${S.data&&S.data.paid&&!S.quiz?'<button class="s mb" onclick="tg(1)" aria-label="القائمة">☰</button>':''}<div class="logo${LOGO?' has':''}">${LOGO?`<img src="${LOGO}" alt="شعار المهرجان" onerror="this.parentNode.className='logo';this.parentNode.textContent='✝'">`:'✝'}</div><h1 class="fest">${esc(FEST)}</h1><div class="sub">نكرز بالمسيح ونبني معًا</div><div class="ch">${esc(CHURCH)}</div></div>`;
+
+const PAY=`<div class="pay">💳 <b>طريقة دفع الاشتراك (100 جنيه)</b><br>• ادفعها في الاجتماع<br>• أو حوّل على انستاباي على رقم <b dir="ltr">01555033144</b>، وابعت بعدها سكرين التحويل لنفس الرقم مع اسمك ثلاثي.</div>`;
+const tg=o=>{S.drawer=!!o;['dr','ov'].forEach(i=>$(i)&&$(i).classList.toggle('open',S.drawer))};
+const ld=f=>`<div class="card m" style="text-align:center">${inflight?'⏳ بنحمّل...':`<button class="s" onclick="${f}">إعادة المحاولة</button>`}</div>`;
+async function go(v){if(S.quiz)return tg(0);S.view=v;S.msg='';tg(0);
+ if(v==='profile'){S.prof=null;const p=api('profile');render();const j=await p;if(j)S.prof=j;render()}
+ else if(v==='group'){S.grp=null;const p=api('group');render();const j=await p;if(j)S.grp=j;render()}
+ else if(v==='rank'){S.rank=null;const p=api('rank');render();const j=await p;if(j)S.rank=j;render()}
+ else if(v==='tasks'){const p=loadTasks();render();await p;render()}
+ else render()}
+async function loadTasks(){const j=await api('tasks');if(j)S.tasks=j.tasks}
+async function startTask(id){const j=await api('task_start',{id});S.view='tasks';
+ if(j){if(j.already){S.msg='انت حليت التاسك ده قبل كده، درجتك '+j.score+' من '+j.total}else if(j.expired){S.msg='الوقت خلص، درجتك '+j.score+' من '+j.total+' ✅';await loadTasks()}
+  else{S.quiz={id,title:j.title,qs:j.qs,ans:j.qs.map(()=>-1),end:Date.now()+j.left};clearInterval(S.iv);S.iv=setInterval(tick,1000)}}
+ render()}
+function tick(){const q=S.quiz;if(!q)return clearInterval(S.iv);const l=Math.max(0,q.end-Date.now()),e=$('tm');
+ if(e){e.textContent=Math.floor(l/60000)+':'+String(Math.floor(l/1000)%60).padStart(2,'0');e.parentNode.classList.toggle('bad',l<60000)}
+ if(l<=0&&!q.sub)submitQuiz(1)}
+async function submitQuiz(auto){const q=S.quiz;if(!q||q.sub)return;
+ if(!auto&&q.ans.includes(-1)&&!confirm('في أسئلة لسه مجاوبتهاش، تسلّم برضو؟'))return;
+ q.sub=1;const j=await api('task_submit',{id:q.id,answers:q.ans});q.sub=0;
+ if(j){clearInterval(S.iv);S.quiz=null;S.msg='تم التسليم ✅ درجتك '+j.score+' من '+j.total;await loadTasks()}
+ else if(auto){q.sub=1;setTimeout(()=>{q.sub=0},3000)}
+ render()}
+function shrink(f){return new Promise((res,rej)=>{const img=new Image(),u=URL.createObjectURL(f);img.onerror=()=>rej();
+ img.onload=()=>{const n=256,c=document.createElement('canvas');c.width=c.height=n;const m=Math.min(img.width,img.height);
+  c.getContext('2d').drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,n,n);URL.revokeObjectURL(u);
+  let q=.8,d=c.toDataURL('image/jpeg',q);while(d.length>40000&&q>.3){q-=.1;d=c.toDataURL('image/jpeg',q)}res(d)};img.src=u})}
+async function pickImg(f){if(!f)return;let d;try{d=await shrink(f)}catch(e){return say('الصورة مش مفهومة، جرب صورة تانية')}
+ if(S.data){const j=await api('avatar_set',{img:d});if(j){S.prof.avatar=d;S.msg='اتحفظت صورتك ✅'}}else S.regImg=d;render()}
+const photoPick=()=>`<div style="text-align:center;margin:8px 0"><div class="av">${S.regImg?`<img src="${S.regImg}" alt="" referrerpolicy="no-referrer">`:'👤'}</div><button type="button" class="s" style="width:auto;padding:8px 18px" onclick="$('rf').click()">📷 ${S.regImg?'غيّر صورتك':'اختار صورتك (إجباري)'}</button><input type="file" id="rf" accept="image/*" hidden onchange="pickImg(this.files[0])"></div>`;
+const panel=()=>`<div class="ov${S.drawer?' open':''}" id="ov" onclick="tg(0)"></div><nav class="pn${S.drawer?' open':''}" id="dr">${S.prof&&S.prof.avatar?`<div class="av" style="width:64px;height:64px"><img src="${S.prof.avatar}" alt="" referrerpolicy="no-referrer"></div>`:''}<h2>القائمة</h2>${[['home','🏠','الرئيسية'],['profile','👤','البروفايل'],['group','👥','مجموعتي'],['tasks','📝','التاسكات'],['rank','🏆','الترتيب']].map(([k,i,l])=>`<button class="${S.view==k?'':'s'}" onclick="go('${k}')">${i} ${l}</button>`).join('')}</nav>`;
+const profHtml=()=>{const p=S.prof;if(!p)return ld("go('profile')");const ok=p.att.filter(a=>a.ok).length;
+ return `<div class="card glow in"><h2>👤 البروفايل</h2><div style="text-align:center;margin-bottom:8px"><div class="av">${p.avatar?`<img src="${p.avatar}" alt="" referrerpolicy="no-referrer">`:'👤'}</div><button class="s" style="width:auto;padding:8px 18px" onclick="$('pf').click()">📷 ${p.avatar?'تغيير':'إضافة'} الصورة</button><input type="file" id="pf" accept="image/*" hidden onchange="pickImg(this.files[0])"></div><div class="g"><span class="m">الاسم</span><b>${esc(p.name)}</b></div><div class="g"><span class="m">اسم المستخدم</span><b dir="ltr">${esc(p.username)}</b></div><div class="g"><span class="m">الفصل</span><b>${esc(p.cls||'-')}</b></div><div class="g"><span class="m">النقاط</span><span class="pts">${p.points}</span></div></div>
+ <div class="card"><h2>الحضور والتاسكات (${ok} من ${p.att.length})</h2>${p.att.length?p.att.map(a=>`<div class="g"><span>${a.ok?'✅':'❌'} ${esc(a.name)}</span><span class="${a.ok?'ok':'bad'}">${a.ok?'حاضر +'+a.points:'غائب'}</span></div>`).join(''):'<div class="m">لسه مفيش اجتماعات أو تاسكات</div>'}</div>`};
+const avt=(u,s)=>`<div class="av" style="width:${s}px;height:${s}px;font-size:${s/2}px;margin:0;flex:none">${u?`<img src="${esc(u)}" alt="" referrerpolicy="no-referrer">`:'👤'}</div>`;
+const groupHtml=()=>{const G=S.grp;if(!G)return ld("go('group')");
+ if(G.group===null)return `<div class="card glow in" style="text-align:center"><h2>👥 مجموعتي</h2><p class="m" style="margin:0">لسه ماختارتش مجموعة.</p></div>`;
+ return `<div class="card glow in"><h2>👥 مجموعة ${esc(G.name)}</h2><p class="m" style="margin:0">${G.members.length} ولد</p></div>`+G.members.map(x=>`<div class="card"><div class="g" style="justify-content:flex-start;gap:14px">${avt(x.avatar,56)}<div><b>${esc(x.name)}${x.me?' <b class="ok">(أنت)</b>':''}</b><div class="m">${esc(x.cls||'-')}</div></div></div></div>`).join('')};
+const rankHtml=()=>{const R=S.rank;if(!R)return ld("go('rank')");
+ if(R.hidden)return `<div class="card glow in" style="text-align:center"><h2>🔒 الترتيب</h2><p class="m" style="margin:0">الترتيب محجوب حاليا</p></div>`;
+ const md=i=>['🥇','🥈','🥉'][i]||(i+1)+'.';
+ return `<div class="card glow in"><h2>🏆 أوائل الأولاد</h2>${R.top.length?R.top.map((x,i)=>`<div class="g"><span>${md(i)} ${esc(x.name)}${x.me?' <b class="ok">(أنت)</b>':''}</span><b class="pts" style="font-size:20px">${x.points}</b></div>`).join(''):'<div class="m">لسه مفيش ترتيب</div>'}</div>
+ <div class="card"><h2>ترتيب المجموعات</h2>${R.board.map((x,i)=>`<div class="g"><span>${md(i)} ${esc(x.name)}</span><b class="pts" style="font-size:20px">${x.points}</b></div>`).join('')}</div>`};
+const tasksHtml=()=>{const T=S.tasks;if(!T)return ld('go(\'tasks\')');
+ return `<div class="card in"><h2>📝 التاسكات</h2><p class="m" style="margin:0">اختيار من متعدد. الوقت بيبدأ أول ما تدوس ابدأ، والتسليم بيتم تلقائي لما يخلص.</p></div>`+(T.length?T.map(t=>`<div class="card"><div class="g"><div><b>${esc(t.title)}</b><div class="m">${t.minutes} دقيقة — ${t.qn} سؤال — ${t.total} درجة</div>${t.state=='done'?`<b class="ok">درجتك ${t.score} من ${t.total}</b>`:t.closed&&t.state=='new'?'<b class="bad">🔒 مقفول</b>':''}</div><button class="${t.state=='done'?'s':''}" style="width:auto;padding:10px 20px" ${t.closed&&t.state=='new'?'disabled':''} onclick="startTask('${t.id}')">${t.state=='done'?'فتح':t.state=='run'?'كمّل':'ابدأ'}</button></div></div>`).join(''):'<div class="card m">مفيش تاسكات دلوقتي</div>')};
+const quizHtml=()=>{const q=S.quiz;return `<div class="card glow" style="position:sticky;top:8px;z-index:5"><div class="g"><b>${esc(q.title)}</b><span class="pts" id="tm">--</span></div></div>`+q.qs.map((x,i)=>`<div class="card"><b>${i+1}. ${esc(x.q)}</b> <span class="m">(${x.p} درجة)</span>${x.o.map((o,j)=>`<label class="op"><input type="radio" name="q${i}" ${q.ans[i]===j?'checked':''} onchange="S.quiz.ans[${i}]=${j}">${esc(o)}</label>`).join('')}</div>`).join('')+`<button onclick="submitQuiz()">تسليم</button>`};
+function render(){
+ keep();
+ let h;const d=S.data,D=S.draft;
+ const msg=S.msg?`<div class="note ${S.msg.includes('✅')?'ok':'bad'}">${esc(S.msg)}</div>`:'';
+ if(S.fresh){const f=S.fresh;
+  h=head(0)+`<div class="card glow in" id="idcard"><h2>كارت اشتراك مهرجان الكرازة</h2>
+  <div style="margin-bottom:10px"><b>${esc(f.name)}</b> — ${esc(f.cls)}</div>
+  <div class="m">اسم المستخدم</div><div class="cred">${esc(f.u)}</div><div class="m">الباسورد</div><div class="cred">${esc(f.p)}</div>
+  <div class="warn">⚠️ متشاركش اسم المستخدم أو الباسورد مع حد أبدًا. حسابك دلوقتي <b>Pending</b> لحد ما تدفع الاشتراك والإدارة تأكد الدفع.</div>
+  ${PAY}<button class="np" onclick="window.print()">🖨 طباعة / حفظ PDF</button><button class="np s" onclick="S.fresh=null;render()">حفظتهم، تسجيل الدخول</button></div>`;
+ }else if(S.cred&&!d){
+  h=head(1)+msg+`<div class="card m" style="text-align:center">⏳ بنفتح حسابك...</div>`;
+ }else if(d&&!d.paid){
+  h=head(1)+msg+`<div class="card glow in"><h2>أهلاً ${esc(d.name)}</h2><p>حسابك <b class="bad">Pending ⏳</b><br>ادفع الاشتراك للإدارة، وبعد ما يتأكد الدفع الموقع هيفتح معاك.</p>${PAY}<button class="s" onclick="refresh()">تحديث</button></div>`;
+ }else if(d&&S.quiz){h=head(1)+msg+quizHtml();
+ }else if(d&&S.view==='profile'){h=head(1)+msg+profHtml();
+ }else if(d&&S.view==='group'){h=head(1)+msg+groupHtml();
+ }else if(d&&S.view==='rank'){h=head(1)+msg+rankHtml();
+ }else if(d&&S.view==='tasks'){h=head(1)+msg+tasksHtml();
+ }else if(d&&d.group===null){
+  h=head(1)+msg+`<div class="card in"><h2>اختار مجموعتك</h2><p class="m" style="margin:0">كل مجموعة حدها الأقصى ${d.cap} ولد. الاختيار مرة واحدة.</p></div>`+
+  d.names.map((n,i)=>{const c=d.counts[i],f=c>=d.cap;return `<div class="card"><div class="g"><b>${esc(n)}</b><span class="m">${c}/${d.cap}</span></div><div class="bar"><i style="width:${Math.min(100,c/d.cap*100)}%"></i></div><details><summary>شوف مين في المجموعة (${c})</summary>${(d.gm[i]||[]).map(n=>`<div class="m">• ${esc(n)}</div>`).join('')||'<div class="m">لسه مفيش حد</div>'}</details><button ${f?'disabled':''} onclick="join(${i})">${f?'مكتملة':'انضم'}</button></div>`}).join('');
+ }else if(d){
+  h=head(1)+msg+`<div class="card glow in"><h2>أهلاً ${esc(d.name)}</h2><div class="g"><span>مجموعتك: <b>${esc(d.names[d.group])}</b></span><span><span class="pts">${d.points}</span> <span class="m">نقطة</span></span></div></div>
+  <div class="card"><h2>سجّل حضورك</h2><input id="cd" placeholder="اكتب كود الاجتماع" dir="ltr" autocomplete="off" style="text-align:center;letter-spacing:4px"><button onclick="redeem()">تأكيد الحضور</button></div>
+  
+  `;
+ }else{
+  const R=S.tab=='reg';
+  h=head(0)+msg+`<div class="card glow in"><div class="tabs">${[['login','دخول'],['reg','اشتراك جديد']].map(([k,l])=>`<button class="${S.tab==k?'':'s'}" onclick="keep();delete S.draft.p;S.tab='${k}';S.msg='';render()">${l}</button>`).join('')}</div>
+  ${R?`<input id="n" placeholder="الاسم ثلاثي بالعربي" autocomplete="name"><input id="ph" type="tel" inputmode="numeric" placeholder="رقم الموبايل (عليه واتساب)" dir="ltr"><select id="cl"><option value="">الفصل</option><option>أولى إعدادي</option><option>ثانية إعدادي</option><option>ثالثة إعدادي</option></select>${photoPick()}<input id="p" type="password" placeholder="اختار باسورد" autocomplete="new-password">${PAY}<button onclick="reg()">اشترك في المهرجان</button>`
+  :`<input id="u" placeholder="اسم المستخدم" dir="ltr" autocomplete="username" autocapitalize="none"><input id="p" type="password" placeholder="الباسورد" autocomplete="current-password"><button onclick="login()">دخول</button>`}</div>`;
+ }
+ $('app').innerHTML=h+(d&&d.paid&&!S.quiz?panel():'');if(S.quiz)tick();
+ ['n','ph','cl','u','p'].forEach(i=>{if($(i)&&D[i])$(i).value=D[i]});
+ const p=$('p');if(p)p.addEventListener('keydown',e=>{if(e.key==='Enter')(S.tab=='reg'?reg:login)()});
+ const u=$('u');if(u)u.addEventListener('keydown',e=>{if(e.key==='Enter')$('p').focus()});
+ const cd=$('cd');if(cd)cd.addEventListener('keydown',e=>{if(e.key==='Enter')redeem()});
+}
+render();
+if(S.cred)refresh();
+</script></body></html>
